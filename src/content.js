@@ -144,6 +144,274 @@ export const pageMarkup = `<a class="skip-link" href="#main">Skip to content</a>
       </div>
     </section>
 
+    <!-- INLINE PRODUCT MOCKUP -->
+    <section class="mockup-sec" aria-label="Aska product preview">
+      <div class="sec-in">
+        <div class="sec-label">
+          <i class="fa-solid fa-display"></i> Live Preview
+        </div>
+        <h2 class="sec-title">One inbox. Every<br />channel patched in.</h2>
+        <p class="sec-sub">
+          Aska reads every conversation, drafts every reply, files every
+          invoice — all from a single switchboard view.
+        </p>
+      </div>
+
+      <div class="mockup-frame" aria-hidden="true">
+        <header class="mockup-titlebar">
+          <span class="mockup-dots">
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+          </span>
+          <span class="mockup-url">aska.fynac.com / <span>switchboard</span></span>
+          <span class="mockup-action-bar">
+            <span class="mab-dot"></span> Live · 12 patched
+          </span>
+        </header>
+
+        <div class="mockup-body">
+          <aside class="mockup-sidebar">
+            <div class="mockup-side-section">
+              <span class="mockup-side-label">Channels</span>
+              <div class="mockup-side-item is-active">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                <span class="ms-count">8</span>
+              </div>
+              <div class="mockup-side-item">
+                <i class="fa-solid fa-envelope"></i> Email
+                <span class="ms-count">3</span>
+              </div>
+              <div class="mockup-side-item">
+                <i class="fa-brands fa-telegram"></i> Telegram
+                <span class="ms-count">1</span>
+              </div>
+              <div class="mockup-side-item">
+                <i class="fa-solid fa-comment-sms"></i> SMS
+                <span class="ms-count">—</span>
+              </div>
+              <div class="mockup-side-item">
+                <i class="fa-solid fa-phone"></i> Voice
+                <span class="ms-count">2</span>
+              </div>
+            </div>
+
+            <div class="mockup-side-section">
+              <span class="mockup-side-label">Today</span>
+              <div class="mockup-side-item">
+                <i class="fa-solid fa-file-invoice-dollar"></i> Invoices
+                <span class="ms-count">14</span>
+              </div>
+              <div class="mockup-side-item">
+                <i class="fa-solid fa-coins"></i> Collections
+                <span class="ms-count">AED 38k</span>
+              </div>
+              <div class="mockup-side-item">
+                <i class="fa-solid fa-chart-line"></i> Reports
+                <span class="ms-count">6</span>
+              </div>
+            </div>
+          </aside>
+
+          <main class="mockup-main">
+            <header class="mockup-main-head">
+              <div class="mockup-avatar">M</div>
+              <div class="mockup-thread-meta">
+                <span class="mockup-thread-name">Mohamed Trading LLC</span>
+                <span class="mockup-thread-via">
+                  <i class="fa-brands fa-whatsapp"></i> via WhatsApp · +971 50 ···
+                </span>
+              </div>
+              <div class="mockup-thread-actions">
+                <button class="mockup-thread-action" aria-label="Search">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="mockup-thread-action" aria-label="Star">
+                  <i class="fa-regular fa-star"></i>
+                </button>
+                <button class="mockup-thread-action" aria-label="More">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </button>
+              </div>
+            </header>
+
+            <div class="mockup-conversation">
+              <div class="mockup-msg in">
+                Need 5 split AC units for new villa. How fast can you deliver?
+                <span class="mockup-msg-time">9:02 AM</span>
+              </div>
+              <div class="mockup-msg out">
+                Hi Mohamed — 5 units in stock. Drafting your invoice now.
+                <span class="mockup-msg-time">9:02 AM</span>
+              </div>
+              <div class="mockup-msg out">
+                INV-2024-0892 · 5 × Split AC · AED 10,500 inc VAT.<br />Send PDF + payment link?
+                <span class="mockup-msg-time">9:03 AM</span>
+              </div>
+              <div class="mockup-msg in">
+                Yes, send both. Schedule install Saturday morning.
+                <span class="mockup-msg-time">9:04 AM</span>
+              </div>
+              <div class="mockup-msg out">
+                PDF + link delivered. Saturday 8 AM penciled in your calendar.
+                <span class="mockup-msg-time">9:04 AM</span>
+              </div>
+            </div>
+
+            <footer class="mockup-composer">
+              <span class="mockup-composer-input">Aska is drafting follow-up…</span>
+              <button class="mockup-composer-send" aria-label="Send">
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+            </footer>
+          </main>
+
+          <aside class="mockup-context">
+            <div class="mockup-context-card">
+              <span class="mockup-context-label">Customer</span>
+              <div class="mockup-context-row">
+                <span>Lifetime value</span><span>AED 142k</span>
+              </div>
+              <div class="mockup-context-row">
+                <span>Outstanding</span><span>AED 0</span>
+              </div>
+              <div class="mockup-context-row">
+                <span>Last invoice</span><span>3 days ago</span>
+              </div>
+            </div>
+
+            <div class="mockup-context-card">
+              <span class="mockup-context-label">Today</span>
+              <div class="mockup-context-stat">AED 38,420</div>
+              <span class="mockup-context-stat-label">collected · 24 invoices</span>
+            </div>
+
+            <div class="mockup-context-card">
+              <span class="mockup-context-label">Aska suggests</span>
+              <div class="mockup-action-chips">
+                <span class="mockup-chip">Send PDF</span>
+                <span class="mockup-chip">Mark paid</span>
+                <span class="mockup-chip">Schedule visit</span>
+                <span class="mockup-chip">+ note</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROUTING MAP — editorial lanes (no pinned scroll) -->
+    <section class="route-map-sec" aria-labelledby="route-map-heading">
+      <div class="sec-in route-map-grid">
+        <header class="route-map-intro">
+          <span class="route-map-tag">
+            <span class="route-map-dot"></span> Routing overview
+          </span>
+          <h2 id="route-map-heading" class="route-map-title">
+            Every lane lands in <em>one</em> inbox.
+          </h2>
+          <p class="route-map-lede">
+            Customers stay on the channels they prefer. Aska turns every thread into the same
+            back-office work — replies, invoices, collections and reports on fynac.com.
+          </p>
+          <dl class="route-map-stats">
+            <div>
+              <dt>Channels</dt>
+              <dd>5 live</dd>
+            </div>
+            <div>
+              <dt>Actions</dt>
+              <dd>4 routed</dd>
+            </div>
+            <div>
+              <dt>Inbox</dt>
+              <dd>1 queue</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="route-map-lanes" role="list">
+          <article class="route-lane" role="listitem" style="--rl-delay: 0s">
+            <div class="rl-src">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              <span>WhatsApp</span>
+            </div>
+            <div class="rl-runway" aria-hidden="true">
+              <span class="rl-line"></span>
+              <span class="rl-dot"></span>
+            </div>
+            <div class="rl-outcomes">
+              <span class="rl-pill">Reply</span>
+              <span class="rl-pill">Invoice</span>
+              <span class="rl-pill">Collect</span>
+            </div>
+          </article>
+
+          <article class="route-lane" role="listitem" style="--rl-delay: 0.45s">
+            <div class="rl-src">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <span>Email</span>
+            </div>
+            <div class="rl-runway" aria-hidden="true">
+              <span class="rl-line"></span>
+              <span class="rl-dot"></span>
+            </div>
+            <div class="rl-outcomes">
+              <span class="rl-pill">Draft</span>
+              <span class="rl-pill">PDF</span>
+              <span class="rl-pill">Report</span>
+            </div>
+          </article>
+
+          <article class="route-lane" role="listitem" style="--rl-delay: 0.9s">
+            <div class="rl-src">
+              <i class="fa-solid fa-comment-sms" aria-hidden="true"></i>
+              <span>SMS</span>
+            </div>
+            <div class="rl-runway" aria-hidden="true">
+              <span class="rl-line"></span>
+              <span class="rl-dot"></span>
+            </div>
+            <div class="rl-outcomes">
+              <span class="rl-pill">Remind</span>
+              <span class="rl-pill">Link</span>
+            </div>
+          </article>
+
+          <article class="route-lane" role="listitem" style="--rl-delay: 1.35s">
+            <div class="rl-src">
+              <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+              <span>Telegram</span>
+            </div>
+            <div class="rl-runway" aria-hidden="true">
+              <span class="rl-line"></span>
+              <span class="rl-dot"></span>
+            </div>
+            <div class="rl-outcomes">
+              <span class="rl-pill">Team</span>
+              <span class="rl-pill">Brief</span>
+            </div>
+          </article>
+
+          <article class="route-lane" role="listitem" style="--rl-delay: 1.8s">
+            <div class="rl-src">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <span>Voice</span>
+            </div>
+            <div class="rl-runway" aria-hidden="true">
+              <span class="rl-line"></span>
+              <span class="rl-dot"></span>
+            </div>
+            <div class="rl-outcomes">
+              <span class="rl-pill">Answer</span>
+              <span class="rl-pill">Route</span>
+              <span class="rl-pill">Note</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     ${tallDivider("01", "Every channel", "Five networks routed")}
 
     <!-- CHANNELS -->
@@ -1121,6 +1389,41 @@ export const pageMarkup = `<a class="skip-link" href="#main">Skip to content</a>
       </div>
     </section>
 
+    <!-- LOGO TICKER -->
+    <section class="logo-ticker-sec" aria-label="Trusted by businesses across the GCC">
+      <div class="logo-ticker-rail" aria-hidden="true">
+        <span class="logo-ticker-rail-line"></span>
+        <span>Trusted across the GCC</span>
+        <span class="logo-ticker-rail-line"></span>
+      </div>
+      <div class="logo-ticker-track" aria-hidden="true">
+        <span class="logo-ticker-item"><span class="lt-mark">01</span>Mohamed Trading LLC</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Gulf Services Co.</span>
+        <span class="logo-ticker-item"><span class="lt-mark">02</span>Al Barsha Auto</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Star Technical</span>
+        <span class="logo-ticker-item"><span class="lt-mark">03</span>Rashid &amp; Sons</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Marina Realty</span>
+        <span class="logo-ticker-item"><span class="lt-mark">04</span>Hamdan Group</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Falcon Logistics</span>
+        <span class="logo-ticker-item"><span class="lt-mark">05</span>Bayan Clinics</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Khaleej Hardware</span>
+        <span class="logo-ticker-item"><span class="lt-mark">06</span>Sahara Café</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Capital Contracting</span>
+        <span class="logo-ticker-item"><span class="lt-mark">01</span>Mohamed Trading LLC</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Gulf Services Co.</span>
+        <span class="logo-ticker-item"><span class="lt-mark">02</span>Al Barsha Auto</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Star Technical</span>
+        <span class="logo-ticker-item"><span class="lt-mark">03</span>Rashid &amp; Sons</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Marina Realty</span>
+        <span class="logo-ticker-item"><span class="lt-mark">04</span>Hamdan Group</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Falcon Logistics</span>
+        <span class="logo-ticker-item"><span class="lt-mark">05</span>Bayan Clinics</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Khaleej Hardware</span>
+        <span class="logo-ticker-item"><span class="lt-mark">06</span>Sahara Café</span>
+        <span class="logo-ticker-item"><span class="lt-dot"></span>Capital Contracting</span>
+      </div>
+    </section>
+
     ${smallDivider("08", "Numbers")}
 
     <!-- TRUST -->
@@ -1236,8 +1539,8 @@ export const pageMarkup = `<a class="skip-link" href="#main">Skip to content</a>
         technical skills needed.
       </p>
       <div class="cta-btns">
-        <a href="https://fynac.com" class="btn-primary" target="_blank"
-          ><i class="fa-solid fa-arrow-right"></i> Start for free</a
+        <a href="https://fynac.com" class="btn-primary" target="_blank" rel="noopener"
+          ><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Start for free</a
         >
         <a href="#examples" class="btn-secondary"
           >See examples <i class="fa-solid fa-arrow-up"></i
@@ -1254,17 +1557,21 @@ export const pageMarkup = `<a class="skip-link" href="#main">Skip to content</a>
               class="logo-img-sm"
               src="https://demo.fynac.com/files/logo%206%20%20(2).png"
               alt="Aska"
+              loading="lazy"
+              decoding="async"
+              width="120"
+              height="40"
             />
             <p class="f-about">
               AI-powered business assistant. Works across WhatsApp, Email,
               Telegram, SMS and Voice calls — 24/7.
             </p>
             <div class="f-social">
-              <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-              <a href="#"><i class="fa-brands fa-telegram"></i></a>
-              <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-              <a href="https://fynac.com" target="_blank"
-                ><i class="fa-solid fa-globe"></i
+              <a href="#" aria-label="Aska on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+              <a href="#" aria-label="Aska on Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a>
+              <a href="#" aria-label="Aska on X (Twitter)"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+              <a href="https://fynac.com" target="_blank" rel="noopener" aria-label="fynac.com"
+                ><i class="fa-solid fa-globe" aria-hidden="true"></i
               ></a>
             </div>
           </div>
@@ -1280,7 +1587,7 @@ export const pageMarkup = `<a class="skip-link" href="#main">Skip to content</a>
           <div class="f-col">
             <h4>Company</h4>
             <ul>
-              <li><a href="https://fynac.com" target="_blank">fynac.com</a></li>
+              <li><a href="https://fynac.com" target="_blank" rel="noopener">fynac.com</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Blog</a></li>
               <li><a href="#">Contact</a></li>

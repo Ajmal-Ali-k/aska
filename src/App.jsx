@@ -12,6 +12,8 @@ const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], [data-tab-target], .ch-card, .role-card, .ind-card, .feat-c, .perm-card, .step';
 
 const SCROLL_REVEAL_SELECTOR = [
+  ".route-map-intro",
+  ".route-lane",
   ".ch-card",
   ".role-card",
   ".step",
@@ -250,6 +252,72 @@ export default function App() {
               ease: "power2.out",
               overwrite: "auto",
             });
+          },
+        });
+      }
+
+      const magneticHandlers = [];
+      if (supportsHover && !reduceMotion) {
+        const magnets = root.querySelectorAll(
+          ".btn-primary, .btn-secondary, .btn-cta",
+        );
+        magnets.forEach((btn) => {
+          const xTo = gsap.quickTo(btn, "x", { duration: 0.5, ease: "power3" });
+          const yTo = gsap.quickTo(btn, "y", { duration: 0.5, ease: "power3" });
+          const onMove = (event) => {
+            const rect = btn.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (event.clientX - cx) * 0.28;
+            const dy = (event.clientY - cy) * 0.28;
+            xTo(dx);
+            yTo(dy);
+          };
+          const onLeave = () => {
+            xTo(0);
+            yTo(0);
+          };
+          btn.addEventListener("mousemove", onMove);
+          btn.addEventListener("mouseleave", onLeave);
+          magneticHandlers.push({ btn, onMove, onLeave });
+        });
+      }
+
+      const fogEl = document.querySelector(".ambient-fog");
+      const fogPalettes = [
+        { x: "30%", y: "20%", x2: "82%", y2: "78%", c: "rgba(156, 255, 87, 0.07)", c2: "rgba(245, 241, 230, 0.04)" },
+        { x: "78%", y: "30%", x2: "18%", y2: "72%", c: "rgba(124, 200, 87, 0.08)", c2: "rgba(245, 241, 230, 0.05)" },
+        { x: "20%", y: "60%", x2: "76%", y2: "30%", c: "rgba(156, 255, 87, 0.05)", c2: "rgba(108, 193, 232, 0.04)" },
+        { x: "82%", y: "70%", x2: "22%", y2: "32%", c: "rgba(156, 255, 87, 0.09)", c2: "rgba(245, 241, 230, 0.06)" },
+        { x: "50%", y: "50%", x2: "50%", y2: "50%", c: "rgba(156, 255, 87, 0.06)", c2: "rgba(245, 241, 230, 0.04)" },
+      ];
+
+      let fogTrigger = null;
+      if (fogEl) {
+        const setFogVars = (palette) => {
+          fogEl.style.setProperty("--fog-x", palette.x);
+          fogEl.style.setProperty("--fog-y", palette.y);
+          fogEl.style.setProperty("--fog-x2", palette.x2);
+          fogEl.style.setProperty("--fog-y2", palette.y2);
+          fogEl.style.setProperty("--fog-color", palette.c);
+          fogEl.style.setProperty("--fog-color-2", palette.c2);
+        };
+        setFogVars(fogPalettes[0]);
+
+        let lastIdx = -1;
+        fogTrigger = ScrollTrigger.create({
+          start: 0,
+          end: () =>
+            document.documentElement.scrollHeight - window.innerHeight,
+          onUpdate: (self) => {
+            const idx = Math.min(
+              fogPalettes.length - 1,
+              Math.floor(self.progress * fogPalettes.length),
+            );
+            if (idx !== lastIdx) {
+              lastIdx = idx;
+              setFogVars(fogPalettes[idx]);
+            }
           },
         });
       }
@@ -496,6 +564,13 @@ export default function App() {
         if (progressTrigger) {
           progressTrigger.kill();
         }
+        if (fogTrigger) {
+          fogTrigger.kill();
+        }
+        magneticHandlers.forEach(({ btn, onMove, onLeave }) => {
+          btn.removeEventListener("mousemove", onMove);
+          btn.removeEventListener("mouseleave", onLeave);
+        });
         if (lenisTickerFn) {
           gsap.ticker.remove(lenisTickerFn);
         }
@@ -509,6 +584,7 @@ export default function App() {
 
   return (
     <>
+      <div className="ambient-fog" aria-hidden="true" />
       <div className="scroll-progress" aria-hidden="true">
         <span className="scroll-progress-fill" />
       </div>
