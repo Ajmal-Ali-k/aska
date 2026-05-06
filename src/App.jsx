@@ -3,9 +3,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { useGSAP } from "@gsap/react";
+import Lenis from "lenis";
 import { pageMarkup } from "./content.js";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin);
+
+const INTERACTIVE_SELECTOR =
+  'a, button, [role="button"], [data-tab-target], .ch-card, .role-card, .ind-card, .feat-c, .perm-card, .step';
 
 const SCROLL_REVEAL_SELECTOR = [
   ".ch-card",
@@ -124,6 +128,31 @@ export default function App() {
         button.addEventListener("click", onTabClick);
       });
 
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const supportsHover = window.matchMedia(
+        "(hover: hover) and (pointer: fine)",
+      ).matches;
+
+      let lenis = null;
+      let lenisTickerFn = null;
+
+      if (!reduceMotion) {
+        lenis = new Lenis({
+          duration: 1.05,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 1.4,
+        });
+
+        lenisTickerFn = (time) => lenis.raf(time * 1000);
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add(lenisTickerFn);
+        gsap.ticker.lagSmoothing(0);
+      }
+
       const anchors = gsap.utils
         .toArray('a[href^="#"]', root)
         .filter((anchor) => anchor.getAttribute("href") !== "#");
@@ -135,19 +164,95 @@ export default function App() {
         const target = root.querySelector(targetId);
         if (!target) return;
 
-        const reduce = window.matchMedia(
-          "(prefers-reduced-motion: reduce)",
-        ).matches;
-
         event.preventDefault();
-        target.scrollIntoView({
-          behavior: reduce ? "auto" : "smooth",
-          block: "start",
-        });
+        if (lenis) {
+          lenis.scrollTo(target, { offset: 0, duration: 1.2 });
+        } else {
+          target.scrollIntoView({ behavior: "auto", block: "start" });
+        }
       };
       anchors.forEach((anchor) => {
         anchor.addEventListener("click", onAnchorClick);
       });
+
+      const cursorDot = document.querySelector(".aska-cursor-dot");
+      const cursorRing = document.querySelector(".aska-cursor-ring");
+      const progressFill = document.querySelector(".scroll-progress-fill");
+
+      let onMouseMove = null;
+      let onMouseDown = null;
+      let onMouseUp = null;
+      const hoverInteractives = [];
+      const onHoverEnter = () => cursorRing?.classList.add("is-hovering");
+      const onHoverLeave = () => cursorRing?.classList.remove("is-hovering");
+
+      if (supportsHover && cursorDot && cursorRing) {
+        gsap.set([cursorDot, cursorRing], { autoAlpha: 0, xPercent: -50, yPercent: -50 });
+
+        const dotXTo = gsap.quickTo(cursorDot, "x", {
+          duration: reduceMotion ? 0 : 0.16,
+          ease: "power3",
+        });
+        const dotYTo = gsap.quickTo(cursorDot, "y", {
+          duration: reduceMotion ? 0 : 0.16,
+          ease: "power3",
+        });
+        const ringXTo = gsap.quickTo(cursorRing, "x", {
+          duration: reduceMotion ? 0 : 0.45,
+          ease: "power3",
+        });
+        const ringYTo = gsap.quickTo(cursorRing, "y", {
+          duration: reduceMotion ? 0 : 0.45,
+          ease: "power3",
+        });
+
+        let revealed = false;
+        onMouseMove = (event) => {
+          dotXTo(event.clientX);
+          dotYTo(event.clientY);
+          ringXTo(event.clientX);
+          ringYTo(event.clientY);
+          if (!revealed) {
+            revealed = true;
+            gsap.to([cursorDot, cursorRing], {
+              autoAlpha: 1,
+              duration: 0.35,
+              ease: "power2.out",
+            });
+          }
+        };
+
+        onMouseDown = () => cursorRing.classList.add("is-pressed");
+        onMouseUp = () => cursorRing.classList.remove("is-pressed");
+
+        window.addEventListener("mousemove", onMouseMove, { passive: true });
+        window.addEventListener("mousedown", onMouseDown);
+        window.addEventListener("mouseup", onMouseUp);
+
+        root.querySelectorAll(INTERACTIVE_SELECTOR).forEach((el) => {
+          el.addEventListener("mouseenter", onHoverEnter);
+          el.addEventListener("mouseleave", onHoverLeave);
+          hoverInteractives.push(el);
+        });
+      }
+
+      let progressTrigger = null;
+      if (progressFill) {
+        gsap.set(progressFill, { scaleX: 0, transformOrigin: "0 50%" });
+        progressTrigger = ScrollTrigger.create({
+          start: 0,
+          end: () =>
+            document.documentElement.scrollHeight - window.innerHeight,
+          onUpdate: (self) => {
+            gsap.to(progressFill, {
+              scaleX: self.progress,
+              duration: 0.25,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+          },
+        });
+      }
 
       const mm = gsap.matchMedia();
 
@@ -375,16 +480,45 @@ export default function App() {
         anchors.forEach((anchor) => {
           anchor.removeEventListener("click", onAnchorClick);
         });
+        if (onMouseMove) {
+          window.removeEventListener("mousemove", onMouseMove);
+        }
+        if (onMouseDown) {
+          window.removeEventListener("mousedown", onMouseDown);
+        }
+        if (onMouseUp) {
+          window.removeEventListener("mouseup", onMouseUp);
+        }
+        hoverInteractives.forEach((el) => {
+          el.removeEventListener("mouseenter", onHoverEnter);
+          el.removeEventListener("mouseleave", onHoverLeave);
+        });
+        if (progressTrigger) {
+          progressTrigger.kill();
+        }
+        if (lenisTickerFn) {
+          gsap.ticker.remove(lenisTickerFn);
+        }
+        if (lenis) {
+          lenis.destroy();
+        }
       };
     },
     { scope: appRef },
   );
 
   return (
-    <div
-      ref={appRef}
-      className="app-shell"
-      dangerouslySetInnerHTML={{ __html: pageMarkup }}
-    />
+    <>
+      <div className="scroll-progress" aria-hidden="true">
+        <span className="scroll-progress-fill" />
+      </div>
+      <div className="aska-cursor-ring" aria-hidden="true" />
+      <div className="aska-cursor-dot" aria-hidden="true" />
+      <div
+        ref={appRef}
+        className="app-shell"
+        dangerouslySetInnerHTML={{ __html: pageMarkup }}
+      />
+    </>
   );
 }
