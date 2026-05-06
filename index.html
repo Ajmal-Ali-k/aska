@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aska — the switchboard for fynac.com businesses</title>
+    <meta
+      name="description"
+      content="Aska patches WhatsApp, email, Telegram, SMS and voice into fynac.com so you can reply, invoice, collect payments and run reports from any conversation."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      /* ===== preloader (inline so it paints before React) ===== */
+      html, body { background: #050806; margin: 0; }
+
+      #aska-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: #050806;
+        display: grid;
+        place-items: center;
+        animation: aska-pre-fade 0.4s 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      #aska-preloader[data-done="true"] { pointer-events: none; }
+
+      @keyframes aska-pre-fade {
+        from { opacity: 1; }
+        to { opacity: 0; visibility: hidden; }
+      }
+
+      .aska-pre-stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        padding: 0 24px;
+        opacity: 0;
+        animation: aska-pre-rise 0.55s 0.08s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @keyframes aska-pre-rise {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .aska-pre-mark {
+        font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 64px;
+        color: #f5f1e6;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+      }
+
+      .aska-pre-cable {
+        width: 280px;
+        height: 8px;
+        display: block;
+        overflow: visible;
+      }
+
+      .aska-pre-cable .aska-pre-line {
+        stroke: rgba(245, 241, 230, 0.22);
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        fill: none;
+        stroke-dasharray: 280;
+        stroke-dashoffset: 280;
+        animation: aska-pre-draw 0.6s 0.45s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      }
+
+      @keyframes aska-pre-draw {
+        to { stroke-dashoffset: 0; }
+      }
+
+      .aska-pre-cable .aska-pre-pulse {
+        fill: #9cff57;
+        filter: drop-shadow(0 0 6px rgba(156, 255, 87, 0.55));
+        opacity: 0;
+        animation: aska-pre-travel 0.7s 0.85s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      @keyframes aska-pre-travel {
+        0% { transform: translateX(0); opacity: 0; }
+        12% { opacity: 1; }
+        88% { opacity: 1; }
+        100% { transform: translateX(280px); opacity: 0; }
+      }
+
+      .aska-pre-rev {
+        font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(245, 241, 230, 0.45);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #aska-preloader { animation: aska-pre-fade-instant 0.001s linear forwards; }
+        .aska-pre-stage,
+        .aska-pre-cable .aska-pre-line,
+        .aska-pre-cable .aska-pre-pulse {
+          animation: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        @keyframes aska-pre-fade-instant {
+          to { opacity: 0; visibility: hidden; }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="aska-preloader" aria-hidden="true">
+      <div class="aska-pre-stage">
+        <span class="aska-pre-mark">Aska</span>
+        <svg class="aska-pre-cable" viewBox="0 0 280 8" preserveAspectRatio="none">
+          <path class="aska-pre-line" d="M 0 4 L 280 4" />
+          <circle class="aska-pre-pulse" cx="0" cy="4" r="3.5" />
+        </svg>
+        <span class="aska-pre-rev">Switchboard &middot; Rev 1.0</span>
+      </div>
+    </div>
+    <div id="root"></div>
+    <script>
+      (function () {
+        var el = document.getElementById("aska-preloader");
+        if (!el) return;
+        el.addEventListener(
+          "animationend",
+          function (event) {
+            if (event.animationName === "aska-pre-fade" || event.animationName === "aska-pre-fade-instant") {
+              el.setAttribute("data-done", "true");
+              el.parentNode && el.parentNode.removeChild(el);
+            }
+          },
+          { once: false },
+        );
+      })();
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
