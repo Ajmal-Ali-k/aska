@@ -11,24 +11,134 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, MotionPathPlugin);
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], [data-tab-target], .ch-card, .role-card, .ind-card, .feat-c, .perm-card, .step';
 
-const SCROLL_REVEAL_SELECTOR = [
-  ".route-map-intro",
-  ".route-lane",
-  ".ch-card",
-  ".role-card",
-  ".step",
-  ".feat-c",
-  ".lang-pill",
-  ".ind-card",
-  ".trust-cell",
-  ".perm-card",
-  ".ex-tabs",
-  ".ex-layout",
-  ".cta-final h2",
-  ".cta-final p",
-  ".cta-btns",
-  "footer",
-].join(", ");
+/** Scroll-triggered reveals: each group keeps timing appropriate to density & hierarchy */
+const REVEAL_BATCHES = [
+  {
+    selector:
+      ".mockup-sec .sec-label, .mockup-sec .sec-title, .mockup-sec .sec-sub",
+    start: "top 88%",
+    duration: 0.52,
+    stagger: 0.11,
+    interval: 0.08,
+  },
+  {
+    selector: ".mockup-frame",
+    start: "top 86%",
+    duration: 0.62,
+    stagger: 0,
+    interval: 0.08,
+  },
+  {
+    selector: ".route-map-intro",
+    start: "top 87%",
+    duration: 0.56,
+    stagger: 0,
+    interval: 0.08,
+  },
+  {
+    selector: ".route-lane",
+    start: "top 89%",
+    duration: 0.48,
+    stagger: 0.1,
+    interval: 0.06,
+  },
+  /* Section headings (were missing — cards animated but not titles) */
+  {
+    selector:
+      ".full-sec .sec-label, .full-sec .sec-title, .full-sec .sec-sub, .lang-sec .center-label, .lang-sec .center-title, .lang-sec .center-sub, .trust-sec .center-label, .trust-sec .center-title",
+    start: "top 89%",
+    duration: 0.54,
+    stagger: 0.13,
+    interval: 0.14,
+  },
+  {
+    selector: ".ch-card",
+    start: "top 87%",
+    duration: 0.52,
+    stagger: 0.085,
+    interval: 0.06,
+  },
+  {
+    selector: ".role-card",
+    start: "top 88%",
+    duration: 0.48,
+    stagger: 0.068,
+    interval: 0.05,
+  },
+  {
+    selector: ".step",
+    start: "top 86%",
+    duration: 0.54,
+    stagger: 0.11,
+    interval: 0.07,
+  },
+  {
+    selector: ".feat-c",
+    start: "top 87%",
+    duration: 0.48,
+    stagger: 0.078,
+    interval: 0.06,
+  },
+  {
+    selector: ".lang-pill",
+    start: "top 91%",
+    duration: 0.4,
+    stagger: 0.048,
+    interval: 0.04,
+  },
+  {
+    selector: ".ind-card",
+    start: "top 87%",
+    duration: 0.48,
+    stagger: 0.082,
+    interval: 0.06,
+  },
+  {
+    selector: ".trust-cell",
+    start: "top 88%",
+    duration: 0.54,
+    stagger: 0.14,
+    interval: 0.1,
+  },
+  {
+    selector: ".perm-card",
+    start: "top 87%",
+    duration: 0.48,
+    stagger: 0.078,
+    interval: 0.06,
+  },
+  {
+    selector: ".ex-tab",
+    start: "top 92%",
+    duration: 0.4,
+    stagger: 0.052,
+    interval: 0.04,
+  },
+  {
+    selector: ".ex-layout",
+    start: "top 88%",
+    duration: 0.54,
+    stagger: 0,
+    interval: 0.08,
+  },
+  {
+    selector: ".cta-final .hero-badge, .cta-final h2, .cta-final p, .cta-btns",
+    start: "top 87%",
+    duration: 0.54,
+    stagger: 0.11,
+    interval: 0.08,
+  },
+  {
+    selector: "footer",
+    start: "top 93%",
+    duration: 0.5,
+    stagger: 0,
+    interval: 0.08,
+  },
+];
+
+const REVEAL_Y = 18;
+const REVEAL_EASE = "power2.out";
 
 export default function App() {
   const appRef = useRef(null);
@@ -56,9 +166,9 @@ export default function App() {
       const dividerCableEls = Array.from(root.querySelectorAll(".pd-cable"));
       const dividerPulseEls = Array.from(root.querySelectorAll(".pd-pulse"));
       const countUpEls = gsap.utils.toArray(".trust-num[data-count]", root);
-      const scrollRevealEls = gsap.utils.toArray(SCROLL_REVEAL_SELECTOR, root);
-
-      scrollRevealEls.forEach((el) => el.classList.add("motion-will-animate"));
+      const allRevealEls = REVEAL_BATCHES.flatMap((cfg) =>
+        gsap.utils.toArray(cfg.selector, root),
+      );
 
       const showExample = contextSafe((button, targetId, animate) => {
         const panel = root.querySelector(`#${targetId}`);
@@ -331,7 +441,7 @@ export default function App() {
         gsap.set(headlineLines, { autoAlpha: 0, y: 36 });
         gsap.set(heroBodyEls, { autoAlpha: 0, y: 20 });
         gsap.set(switchboardEls, { autoAlpha: 0, y: 24 });
-        gsap.set(scrollRevealEls, { autoAlpha: 0, y: 22 });
+        gsap.set(allRevealEls, { autoAlpha: 0, y: REVEAL_Y });
 
         cableEls.forEach((cable) => {
           const len = cable.getTotalLength();
@@ -345,99 +455,106 @@ export default function App() {
         gsap.set(pulseEls, { autoAlpha: 0 });
 
         const intro = gsap.timeline({
-          defaults: { ease: "power3.out", duration: 0.6 },
+          defaults: { ease: REVEAL_EASE, duration: 0.54 },
           delay: 1.4,
         });
 
         intro
-          .to(navEls, { autoAlpha: 1, y: 0, duration: 0.5 }, 0)
-          .to(metaEls, { autoAlpha: 1, y: 0, duration: 0.55 }, 0.06)
-          .to(eyebrowEls, { autoAlpha: 1, y: 0, duration: 0.5 }, 0.18)
+          .to(navEls, { autoAlpha: 1, y: 0, duration: 0.48 }, 0)
+          .to(metaEls, { autoAlpha: 1, y: 0, duration: 0.52 }, 0.05)
+          .to(eyebrowEls, { autoAlpha: 1, y: 0, duration: 0.46 }, 0.14)
           .to(
             headlineLines,
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.95,
-              stagger: 0.08,
-              ease: "expo.out",
+              duration: 0.82,
+              stagger: 0.072,
+              ease: "power3.out",
             },
-            0.22,
+            0.18,
           )
           .to(
             switchboardEls,
-            { autoAlpha: 1, y: 0, duration: 0.85 },
-            0.32,
+            { autoAlpha: 1, y: 0, duration: 0.72 },
+            0.28,
           )
           .to(
             heroBodyEls,
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.7,
-              stagger: 0.08,
+              duration: 0.62,
+              stagger: 0.075,
             },
-            0.55,
+            0.48,
           )
           .to(
             cableEls,
             {
               autoAlpha: 1,
               strokeDashoffset: 0,
-              duration: 1.2,
-              stagger: 0.08,
+              duration: 1.02,
+              stagger: 0.072,
               ease: "power2.inOut",
             },
-            0.72,
+            0.62,
           );
 
-        const pulseStart = 1.85;
-        pulseEls.forEach((pulse, i) => {
-          const cableSel = pulse.dataset.cable;
-          const offset = i * 0.62;
-          const duration = 4.2 + (i % 3) * 0.6;
-
-          gsap.fromTo(
-            pulse,
-            { autoAlpha: 0 },
-            {
-              autoAlpha: 1,
-              duration: 0.4,
-              delay: pulseStart + offset,
-            },
-          );
-
-          gsap.to(pulse, {
-            motionPath: {
-              path: cableSel,
-              align: cableSel,
-              alignOrigin: [0.5, 0.5],
-              autoRotate: false,
-            },
-            duration,
-            ease: "power1.inOut",
-            repeat: -1,
-            delay: pulseStart + offset,
+        intro.eventCallback("onComplete", () => {
+          pulseEls.forEach((pulse, i) => {
+            const cableSel = pulse.dataset.cable;
+            const stagger = i * 0.13;
+            gsap.fromTo(
+              pulse,
+              { autoAlpha: 0 },
+              {
+                autoAlpha: 1,
+                duration: 0.34,
+                delay: stagger,
+                ease: "power2.out",
+              },
+            );
+            gsap.to(pulse, {
+              motionPath: {
+                path: cableSel,
+                align: cableSel,
+                alignOrigin: [0.5, 0.5],
+                autoRotate: false,
+              },
+              duration: 4.2 + (i % 3) * 0.55,
+              ease: "power1.inOut",
+              repeat: -1,
+              delay: stagger + 0.1,
+            });
           });
         });
 
-        ScrollTrigger.batch(scrollRevealEls, {
-          start: "top 88%",
-          once: true,
-          onEnter: (batch) =>
-            gsap.to(batch, {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.62,
-              ease: "power3.out",
-              stagger: 0.06,
-              overwrite: "auto",
-              onComplete: () => {
-                batch.forEach((el) =>
-                  el.classList.remove("motion-will-animate"),
-                );
-              },
-            }),
+        REVEAL_BATCHES.forEach((cfg) => {
+          const els = gsap.utils.toArray(cfg.selector, root);
+          if (!els.length) return;
+
+          els.forEach((el) => el.classList.add("motion-will-animate"));
+
+          ScrollTrigger.batch(els, {
+            start: cfg.start,
+            once: true,
+            interval: cfg.interval,
+            onEnter: (batch) =>
+              gsap.to(batch, {
+                autoAlpha: 1,
+                y: 0,
+                duration: cfg.duration,
+                ease: REVEAL_EASE,
+                stagger: cfg.stagger,
+                overwrite: "auto",
+                onComplete: () => {
+                  batch.forEach((el) =>
+                    el.classList.remove("motion-will-animate"),
+                  );
+                },
+              }),
+          });
         });
 
         dividerCableEls.forEach((cable) => {
@@ -531,7 +648,7 @@ export default function App() {
             ...headlineLines,
             ...heroBodyEls,
             ...switchboardEls,
-            ...scrollRevealEls,
+            ...allRevealEls,
             ...cableEls,
             ...pulseEls,
             ...dividerCableEls,
