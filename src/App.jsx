@@ -151,6 +151,7 @@ export default function App() {
       const select = gsap.utils.selector(root);
 
       const navEls = select(".nav");
+      const navEl = navEls[0];
       const metaEls = select(".hero-meta");
       const eyebrowEls = select(".hero-eyebrow");
       const headlineLines = select(".hero h1 .line");
@@ -349,6 +350,22 @@ export default function App() {
       }
 
       let progressTrigger = null;
+      let navShapeTrigger = null;
+      if (navEl) {
+        const setNavExpanded = (expanded) => {
+          navEl.classList.toggle("nav-expanded", expanded);
+          navEl.classList.toggle("nav-compact", !expanded);
+        };
+
+        navShapeTrigger = ScrollTrigger.create({
+          start: 72,
+          end: "max",
+          onEnter: () => setNavExpanded(true),
+          onLeaveBack: () => setNavExpanded(false),
+          onRefresh: () => setNavExpanded(window.scrollY > 72),
+        });
+      }
+
       if (progressFill) {
         gsap.set(progressFill, { scaleX: 0, transformOrigin: "0 50%" });
         progressTrigger = ScrollTrigger.create({
@@ -680,6 +697,9 @@ export default function App() {
         });
         if (progressTrigger) {
           progressTrigger.kill();
+        }
+        if (navShapeTrigger) {
+          navShapeTrigger.kill();
         }
         if (fogTrigger) {
           fogTrigger.kill();

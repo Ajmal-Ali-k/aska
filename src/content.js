@@ -36,7 +36,7 @@ const tallDivider = (num, label, sub) => `
 
 export const pageMarkup = `<a class="skip-link" href="#main">Skip to content</a>
     <!-- NAV -->
-    <nav class="nav" aria-label="Main navigation">
+    <nav class="nav nav-compact" aria-label="Main navigation">
       <a href="#" class="brand-link" aria-label="Aska home">
         <span class="brand-word">Aska</span>
       </a>
