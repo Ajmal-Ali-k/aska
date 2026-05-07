@@ -1,6 +1,6 @@
 /* ============================================================
    ASKA — switchboard direction
-   editorial serif + warm bone accents + signal-only green
+   technical grotesque + warm bone accents + signal-only green
    ============================================================ */
 
 *,
@@ -55,7 +55,7 @@
   --r-full: 999px;
 
   /* type */
-  --display: "Fraunces", "Iowan Old Style", "Hoefler Text", Georgia, serif;
+  --display: "Bricolage Grotesque", "Gill Sans", "Trebuchet MS", sans-serif;
   --body: "Geist", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
@@ -148,10 +148,10 @@ a {
 .chat-info h4,
 .ex-info h4 {
   font-family: var(--display);
-  font-weight: 400;
+  font-weight: 620;
   font-style: normal;
   font-feature-settings: "ss01";
-  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  font-variation-settings: "opsz" 80;
   letter-spacing: -0.025em;
 }
 
@@ -162,7 +162,7 @@ a {
   align-items: center;
   gap: 8px;
   font-family: var(--display);
-  font-weight: 500;
+  font-weight: 700;
   font-variation-settings: "opsz" 36;
 }
 
@@ -177,7 +177,7 @@ a {
   top: 16px;
   left: 50%;
   z-index: 200;
-  width: min(calc(100% - 32px), 1180px);
+  width: min(calc(100dvw - 32px), 1180px);
   height: 60px;
   transform: translateX(-50%);
   display: flex;
@@ -318,8 +318,8 @@ a {
 
 .hero h1 {
   font-size: clamp(44px, 6.4vw, 92px);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
+  line-height: 0.96;
+  letter-spacing: -0.038em;
   color: var(--paper);
   margin-bottom: 20px;
   text-wrap: balance;
@@ -330,10 +330,11 @@ a {
 }
 
 .hero h1 .line-em {
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-style: normal;
+  font-weight: 720;
+  font-variation-settings: "opsz" 96;
   color: var(--paper);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
 }
 
 .hero-sub {
@@ -415,11 +416,11 @@ a {
 .hero-stat-num {
   font-family: var(--display);
   font-size: 24px;
-  font-weight: 400;
-  font-style: italic;
-  font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "opsz" 56;
   color: var(--paper);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 .hero-stat-text { line-height: 1.5; }
@@ -688,7 +689,7 @@ a {
 .sec-title {
   max-width: 880px;
   font-size: clamp(40px, 5.4vw, 84px);
-  line-height: 0.98;
+  line-height: 0.96;
   letter-spacing: -0.04em;
   color: var(--paper);
   margin-bottom: 22px;
@@ -975,8 +976,9 @@ a {
 }
 
 .ex-desc h3 em {
-  font-style: italic;
-  font-variation-settings: "opsz" 96, "SOFT" 100, "WONK" 1;
+  font-style: normal;
+  font-weight: 760;
+  font-variation-settings: "opsz" 72;
 }
 
 .ex-desc p {
@@ -1284,9 +1286,9 @@ a {
 
 .trust-num {
   font-size: clamp(46px, 5.6vw, 76px);
-  font-weight: 400;
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-weight: 680;
+  font-style: normal;
+  font-variation-settings: "opsz" 96;
   letter-spacing: -0.04em;
   color: var(--paper);
   display: block;
@@ -1392,8 +1394,9 @@ a {
 }
 
 .cta-final h2 em {
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-style: normal;
+  font-weight: 720;
+  font-variation-settings: "opsz" 96;
   color: var(--paper);
 }
 
@@ -1627,21 +1630,20 @@ footer {
   will-change: transform, opacity;
 }
 
-/* ===== serif optical-size tiers ===== */
-/* Override individual rules: small serif headings need a smaller opsz
-   value (sturdier strokes) and slightly heavier weight to read clearly
-   at body-adjacent sizes against the dark surfaces. */
+/* ===== heading optical-size tiers ===== */
+/* Large headlines can use the display optical size, while compact
+   headings need sturdier strokes and tighter optical sizing. */
 
 .hero h1,
 .sec-title,
 .cta-final h2 {
-  font-weight: 400;
-  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  font-weight: 620;
+  font-variation-settings: "opsz" 96;
 }
 
 .ex-desc h3 {
-  font-weight: 500;
-  font-variation-settings: "opsz" 72, "SOFT" 0, "WONK" 0;
+  font-weight: 650;
+  font-variation-settings: "opsz" 72;
 }
 
 .role-card h3,
@@ -1651,10 +1653,10 @@ footer {
 .perm-body h3,
 .step-body h3,
 .ex-info h4 {
-  font-weight: 600;
-  font-variation-settings: "opsz" 24, "SOFT" 0, "WONK" 0;
+  font-weight: 700;
+  font-variation-settings: "opsz" 28;
   color: var(--paper);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.03em;
 }
 
 /* ===== responsive ===== */
@@ -1683,9 +1685,11 @@ footer {
 
 @media (max-width: 720px) {
   .nav {
+    left: 10px;
+    transform: none;
     height: 56px;
     padding: 0 6px 0 16px;
-    width: min(calc(100% - 20px), 1180px);
+    width: min(calc(100dvw - 20px), 1180px);
     top: 12px;
   }
 
@@ -1746,6 +1750,11 @@ footer {
 
   .sec-title { font-size: clamp(34px, 11vw, 56px); }
 
+  .aska-cursor-dot,
+  .aska-cursor-ring {
+    display: none !important;
+  }
+
   .patch-divider {
     height: 64px;
     gap: 10px;
@@ -1783,7 +1792,7 @@ footer {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100dvw;
   height: 2px;
   z-index: 250;
   background: rgba(245, 241, 230, 0.05);
@@ -2035,7 +2044,8 @@ button:focus-visible {
 
 .ambient-fog {
   position: fixed;
-  inset: 0;
+  inset: 0 auto 0 0;
+  width: 100dvw;
   z-index: -1;
   pointer-events: none;
   background:
@@ -2070,8 +2080,9 @@ button:focus-visible {
   width: 100%;
   padding: 56px 0 64px;
   background: var(--ink);
-  overflow: hidden;
+  overflow: clip;
   position: relative;
+  contain: layout paint;
 }
 
 .logo-ticker-sec::before,
@@ -2133,11 +2144,11 @@ button:focus-visible {
   align-items: center;
   gap: 12px;
   font-family: var(--display);
-  font-style: italic;
-  font-weight: 400;
-  font-variation-settings: "opsz" 72, "SOFT" 60, "WONK" 0;
+  font-style: normal;
+  font-weight: 650;
+  font-variation-settings: "opsz" 56;
   font-size: 26px;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.04em;
   color: var(--paper-2);
   white-space: nowrap;
   transition: color 0.3s ease;
@@ -2174,6 +2185,24 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .logo-ticker-track { animation: none; }
+}
+
+@media (max-width: 720px) {
+  .logo-ticker-track {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 18px;
+    animation: none;
+  }
+
+  .logo-ticker-item {
+    font-size: 18px;
+  }
+
+  .logo-ticker-item:nth-child(n + 9) {
+    display: none;
+  }
 }
 
 /* =====================================================
@@ -2225,17 +2254,18 @@ button:focus-visible {
 .route-map-title {
   font-family: var(--display);
   font-size: clamp(38px, 4.8vw, 64px);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.03em;
+  font-weight: 620;
+  line-height: 0.96;
+  letter-spacing: -0.038em;
   color: var(--ink-text);
   margin-bottom: 18px;
-  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
+  font-variation-settings: "opsz" 96;
 }
 
 .route-map-title em {
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-style: normal;
+  font-weight: 720;
+  font-variation-settings: "opsz" 96;
 }
 
 .route-map-lede {
@@ -2267,10 +2297,10 @@ button:focus-visible {
 .route-map-stats dd {
   font-family: var(--display);
   font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: -0.035em;
   color: var(--ink-text);
-  font-variation-settings: "opsz" 72, "SOFT" 0, "WONK" 0;
+  font-variation-settings: "opsz" 44;
 }
 
 .route-map-lanes {
@@ -2813,10 +2843,10 @@ button:focus-visible {
 .mockup-context-stat {
   font-family: var(--display);
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--paper);
-  letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 72, "SOFT" 0, "WONK" 0;
+  letter-spacing: -0.035em;
+  font-variation-settings: "opsz" 56;
   line-height: 1;
 }
 
